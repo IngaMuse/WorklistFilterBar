@@ -47,12 +47,16 @@
 			"async": true,
 			"id": "app"
 		},
+		"resourceRoots":{
+			"jblibs": "../../../../../../jetCloud/apps/jbcommon/zjblibs/js/v20004/"
+		},
 		"dependencies": {
 			"minUI5Version": "1.42.0",
 			"libs": {
 				"sap.ui.core": {},
 				"sap.m": {},
-				"sap.f": {}
+				"sap.f": {},
+				"jblibs":{}
 			}
 		},
 		"contentDensities": {
