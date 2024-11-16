@@ -14,7 +14,7 @@
 				<s006:FilterBar id="filterBar" 
     				URLAlias="AdminLogs" firstLine="Created,HeaderID"
     				URLfilter="true" liveMode="true" btnShowHide="true" btnShowHidePressed="true"
-    				entityData="Logs" SearchFields="ApplicationText, UserFullName, InstanceText, Instance, LogMessageText, LogID, LogTypeID, UserID"
+    				entityData="zjblessons_base_Items" SearchFields="HeaderID,MaterialID,GroupID,SubGroupID,Quantity,Price,Created,CreatedBy,Modified,ModifiedBy"
     				 ParametersModel="annotation" change="onPressFilterBarChange" labelPlacement="placeholder" alignControls="Start" btnMode="standard" secondaryControlID="btnTable" tableID="table">
 					<s006:rightToolbar>
 						<s006:BtnTableSettings id="btnTable" URLAlias="AdminLogs" URLfilter="true" VMID="" icon="sap-icon://action-settings" type="Transparent"

@@ -66,7 +66,7 @@ sap.ui.define(
 							id: "GroupID",
 							label: "{i18n>GroupID}",
 							Filter: {
-								mode: "GroupID",
+							  mode: "MultiSelect",
 								filter: "GroupID",
 								text: "GroupID",
 								sort: "GroupID",
@@ -113,10 +113,14 @@ sap.ui.define(
 						{
 							id: "Quantity",
 							label: "{i18n>Quantity}",
-							Filter: {
+              Filter: {          
+                mode:"SearchField",
 								filter: "Quantity",
 								text: "Quantity",
-								sort: "Quantity",
+                sort: "Quantity",
+                key: "Quantity",
+                filterKey: "Quantity",
+								entitySet: "zjblessons_base_Items",
                 visible: true,
                 hidden: false,
               },
@@ -127,15 +131,20 @@ sap.ui.define(
                 width: "7rem",
                 type: "Number",
                 number: "{Quantity}",
+                select: "Quantity",
               },
 						},
 						{
 							id: "Price",
 							label: "{i18n>Price}",
-							Filter: {
+              Filter: {
+                mode:"SearchField",
 								filter: "Price",
 								text: "Price",
-								sort: "Price",
+                sort: "Price",
+                key: "Price",
+                filterKey: "Price",
+                entitySet: "zjblessons_base_Items",
                 visible: true,
                 hidden: false,
               },
@@ -155,7 +164,7 @@ sap.ui.define(
                 visible: true,
                 hidden: false,
                 mode: "DateField",
-                width: "9.2rem",
+                width: "9rem",
                 datePath: "Created",
                 dateMode: true,
                 selectedPeriod: "all",
@@ -178,9 +187,9 @@ sap.ui.define(
 							label: "{i18n>CreatedBy}",
               Filter: {
                 mode: "MultiSelect",
-                filter: "CreatedBy",
+                filter: "CreatedByFullName",
                 text: "CreatedByFullName",
-                sort: "CreatedBy",
+                sort: "CreatedByFullName",
                 image: "CreatedByAvatar",
                 key: "CreatedBy",
                 entitySet: "zjblessons_base_Items",
@@ -189,12 +198,11 @@ sap.ui.define(
               },
               Column: {
                 order: 8,
-                sortProperty: "CreatedBy",
+                sortProperty: "CreatedByFullName",
                 visible: true,
                 width: "9rem",
                 type: "avatarAndLink",
-								select: "CreatedByAvatar,CreatedByFullName",
-
+								select: "CreatedByAvatar,CreatedByFullName"
               },
             },
 						{
@@ -225,9 +233,9 @@ sap.ui.define(
 							label: "{i18n>ModifiedBy}",
               Filter: {
                 mode: "MultiSelect",
-                filter: "ModifiedBy",
+                filter: "ModifiedByFullName",
                 text: "ModifiedByFullName",
-                sort: "ModifiedBy",
+                sort: "ModifiedByFullName",
                 image: "ModifiedByAvatar",
                 key: "ModifiedBy",
                 entitySet: "zjblessons_base_Items",
