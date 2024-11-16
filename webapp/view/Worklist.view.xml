@@ -12,7 +12,7 @@
 		<f:header>
 			<f:DynamicPageHeader pinnable="false">
 				<s006:FilterBar id="filterBar" 
-    				URLAlias="AdminLogs" VMSettingEntity="vmAdminLogs" VMPersistencyKey="jbcommon_log_AdminLogs" firstLine="ClassText,InstanceText,DateTime"
+    				URLAlias="AdminLogs" firstLine="Created,HeaderID"
     				URLfilter="true" liveMode="true" btnShowHide="true" btnShowHidePressed="true"
     				entityData="Logs" SearchFields="ApplicationText, UserFullName, InstanceText, Instance, LogMessageText, LogID, LogTypeID, UserID"
     				 ParametersModel="annotation" change="onPressFilterBarChange" labelPlacement="placeholder" alignControls="Start" btnMode="standard" secondaryControlID="btnTable" tableID="table">

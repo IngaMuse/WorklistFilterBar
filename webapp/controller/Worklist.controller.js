@@ -158,7 +158,7 @@ sap.ui.define(
                 width: "9.2rem",
                 datePath: "Created",
                 dateMode: true,
-                selectedPeriod: "day",
+                selectedPeriod: "all",
                 visiblePeriodButtons: "day, week, month, year, all",
               },
               Column: {
