@@ -30,46 +30,19 @@
 				<table:Table id="table" visibleRowCountMode="Auto" minAutoRowCount="1" enableBusyIndicator="true" busyIndicatorDelay="0" threshold="160" selectionMode="None"
 					selectionBehavior="Row" >
 					<table:columns>
-						<table:Column id="UserFullName" sortProperty="UserFullName" width="18rem">
-							<Label text="{i18n>ttlUserFullName}"/>
+						<table:Column id="CreatedBy" sortProperty="CreatedBy" width="9rem">
+							<Label text="{i18n>CreatedBy}"/>
 							<table:template>
 								<HBox alignItems="Center">
-									<s000:AvatarAndLink text="{UserFullName}" clickable="text" imageURL="{UserAvatarURL}" size="XXS" press="handleLinkPressUserDetail"/>
+									<s000:AvatarAndLink icon="{parts: ['CreatedByFullName','CreatedByAvatar'], formatter: '.checkAvatar'}" text="{CreatedByFullName}" clickable="text" imageURL="{CreatedByAvatar}" size="XXS"/>
 								</HBox>
 							</table:template>
 						</table:Column>
-						<table:Column id="ApplicationText" sortProperty="ApplicationText" width="12rem">
-							<Label text="{i18n>tApplicationText}"/>
+												<table:Column id="ModifiedBy" sortProperty="ModifiedBy" width="9rem">
+							<Label text="{i18n>ModifiedBy}"/>
 							<table:template>
 								<HBox alignItems="Center">
-									<s000:AvatarAndLink text="{ApplicationText}" clickable="text" icon="{parts:['ApplicationText', 'ApplicationIcon'], formatter:'.formatter.checkIcon'}" size="XXS"/>
-								</HBox>
-							</table:template>
-						</table:Column>
-						<table:Column id="ModuleText" sortProperty="ModuleText" width="20rem">
-							<Label text="{i18n>tModuleText}"/>
-							<table:template>
-								<HBox alignItems="Center" renderType="Bare">
-									<core:Icon src="{parts:['ModuleText', 'ModuleIcon'], formatter : '.formatter.checkIcon'}" class="sapUiTinyMarginEnd"/>
-									<Text text="{ModuleText}"/>
-								</HBox>
-							</table:template>
-						</table:Column>
-						<table:Column id="EntityText" sortProperty="EntityText" width="20rem">
-							<Label text="{i18n>tEntityText}"/>
-							<table:template>
-								<HBox alignItems="Center" renderType="Bare">
-									<core:Icon src="{parts:['EntityText', 'EntityIcon'], formatter : '.formatter.checkIcon'}" class="sapUiTinyMarginEnd"/>
-									<Text text="{EntityText}"/>
-								</HBox>
-							</table:template>
-						</table:Column>
-						<table:Column id="SubModuleText" sortProperty="SubModuleText" width="20rem">
-							<Label text="{i18n>tSubModuleText}"/>
-							<table:template>
-								<HBox alignItems="Center" renderType="Bare">
-									<core:Icon src="{parts:['SubModuleText', 'SubModuleIcon'], formatter : '.formatter.checkIcon'}" class="sapUiTinyMarginEnd"/>
-									<Text text="{SubModuleText}"/>
+									<s000:AvatarAndLink icon="{parts: ['ModifiedByFullName','ModifiedByAvatar'], formatter: '.checkAvatar'}" text="{ModifiedByFullName}" clickable="text" imageURL="{ModifiedByAvatar}" size="XXS"/>
 								</HBox>
 							</table:template>
 						</table:Column>

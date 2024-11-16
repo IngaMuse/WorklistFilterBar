@@ -5,7 +5,7 @@ sap.ui.define(
     "jblibs/s000/formatter",
     "jblibs/s000/Back",
   ],
-  function (BaseController, JSONModel, formatter, libsjbBack, UserDetail) {
+  function (BaseController, JSONModel, formatter, libsjbBack) {
     "use strict";
 
     return BaseController.extend(
@@ -25,7 +25,7 @@ sap.ui.define(
 								text: "HeaderID",
 								sort: "HeaderID",
 								key: "HeaderID",
-								entitySet: "HeaderID",
+								entitySet: "zjblessons_base_Headers",
 								visible: true,
 								hidden: false,
 							},
@@ -47,7 +47,7 @@ sap.ui.define(
 								text: "MaterialID",
 								sort: "MaterialID",
 								key: "MaterialID",
-								entitySet: "MaterialID",
+								entitySet: "zjblessons_base_Materials",
 								filterKey: "MaterialID",
 								visible: true,
 								hidden: false,
@@ -71,7 +71,7 @@ sap.ui.define(
 								text: "GroupID",
 								sort: "GroupID",
 								key: "GroupID",
-								entitySet: "GroupID",
+								entitySet: "zjblessons_base_Groups",
 								filterKey: "GroupID",
 								visible: true,
 								hidden: false,
@@ -95,7 +95,7 @@ sap.ui.define(
 								text: "SubGroupID",
 								sort: "SubGroupID",
 								key: "SubGroupID",
-								entitySet: "SubGroupID",
+								entitySet: "zjblessons_base_SubGroups",
 								filterKey: "SubGroupID",
 								visible: true,
 								hidden: false,
@@ -179,11 +179,11 @@ sap.ui.define(
               Filter: {
                 mode: "MultiSelect",
                 filter: "CreatedBy",
-                text: "CreatedBy",
+                text: "CreatedByFullName",
                 sort: "CreatedBy",
-                icon: "CreatedBy",
+                image: "CreatedByAvatar",
                 key: "CreatedBy",
-                entitySet: "CreatedBy",
+                entitySet: "zjblessons_base_Items",
                 visible: true,
                 hidden: false,
               },
@@ -193,7 +193,8 @@ sap.ui.define(
                 visible: true,
                 width: "9rem",
                 type: "avatarAndLink",
-                select: "CreatedBy",
+								select: "CreatedByAvatar,CreatedByFullName",
+
               },
             },
 						{
@@ -203,7 +204,7 @@ sap.ui.define(
                 visible: true,
                 hidden: false,
                 mode: "DateField",
-                width: "9.2rem",
+                width: "9rem",
                 datePath: "Modified",
                 dateMode: true,
                 selectedPeriod: "day",
@@ -225,11 +226,11 @@ sap.ui.define(
               Filter: {
                 mode: "MultiSelect",
                 filter: "ModifiedBy",
-                text: "ModifiedBy",
+                text: "ModifiedByFullName",
                 sort: "ModifiedBy",
-                icon: "ModifiedBy",
+                image: "ModifiedByAvatar",
                 key: "ModifiedBy",
-                entitySet: "ModifiedBy",
+                entitySet: "zjblessons_base_Items",
                 visible: true,
                 hidden: false,
               },
@@ -239,11 +240,18 @@ sap.ui.define(
                 visible: true,
                 width: "9rem",
                 type: "avatarAndLink",
-                select: "ModifiedBy",
+                select: "ModifiedByAvatar,ModifiedByFullName",
               },
             },
           ],
-        }),
+				}),
+
+				checkAvatar: function (sName, sAvatar) {
+					if (sName && sName !== "" && sAvatar==="") {
+						return "sap-icon://person-placeholder"
+					} else
+					return "";
+			  },
 
         onInit: function () {
           let oViewModel = new JSONModel({});
