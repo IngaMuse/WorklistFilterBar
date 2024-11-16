@@ -2,61 +2,290 @@ sap.ui.define(
   [
     "zjblessons/WorklistFilterBar/controller/BaseController",
     "sap/ui/model/json/JSONModel",
-    "zjblessons/WorklistFilterBar/model/formatter",
-    "sap/ui/model/Sorter",
+    "jblibs/s000/formatter",
+    "jblibs/s000/Back",
   ],
-  function (BaseController, JSONModel, formatter, Sorter) {
+  function (BaseController, JSONModel, formatter, libsjbBack, UserDetail) {
     "use strict";
 
     return BaseController.extend(
       "zjblessons.WorklistFilterBar.controller.Worklist",
       {
+        jbBack: new libsjbBack(),
         formatter: formatter,
+				jsonAnnotation: new JSONModel({
+					RequestAtLeast: "",
+					Annotation: [
+						{
+							id: "HeaderID",
+							label: "{i18n>HeaderID}",
+							Filter: {
+								mode: "SingleSelectMaster",
+								filter: "HeaderID",
+								text: "HeaderID",
+								sort: "HeaderID",
+								key: "HeaderID",
+								entitySet: "HeaderID",
+								visible: true,
+								hidden: false,
+							},
+							Column: {
+								order: 1,
+								sortProperty: "HeaderID",
+								visible: true,
+								width: "9rem",
+								type: "text",
+								text: "{HeaderID}",
+							},
+						},
+						{
+							id: "MaterialID",
+							label: "{i18n>MaterialID}",
+							Filter: {
+								mode: "MultiSelect",
+								filter: "MaterialID",
+								text: "MaterialID",
+								sort: "MaterialID",
+								key: "MaterialID",
+								entitySet: "MaterialID",
+								filterKey: "MaterialID",
+								visible: true,
+								hidden: false,
+							},
+							Column: {
+								order: 2,
+								sortProperty: "MaterialID",
+								visible: true,
+								width: "9rem",
+								text: "{MaterialID}",
+								select: "MaterialID",
+								type: "text",
+							},
+						},
+						{
+							id: "GroupID",
+							label: "{i18n>GroupID}",
+							Filter: {
+								mode: "GroupID",
+								filter: "GroupID",
+								text: "GroupID",
+								sort: "GroupID",
+								key: "GroupID",
+								entitySet: "GroupID",
+								filterKey: "GroupID",
+								visible: true,
+								hidden: false,
+							},
+							Column: {
+								order: 3,
+								sortProperty: "GroupID",
+								visible: true,
+								width: "9rem",
+								text: "{GroupID}",
+								select: "GroupID",
+								type: "text",
+							},
+						},
+						{
+							id: "SubGroupID",
+							label: "{i18n>SubGroupID}",
+							Filter: {
+								mode: "MultiSelect",
+								filter: "SubGroupID",
+								text: "SubGroupID",
+								sort: "SubGroupID",
+								key: "SubGroupID",
+								entitySet: "SubGroupID",
+								filterKey: "SubGroupID",
+								visible: true,
+								hidden: false,
+							},
+							Column: {
+								order: 4,
+								sortProperty: "SubGroupID",
+								visible: true,
+								width: "9rem",
+								text: "{SubGroupID}",
+								select: "SubGroupID",
+								type: "text",
+							},
+						},
+						{
+							id: "Quantity",
+							label: "{i18n>Quantity}",
+							Filter: {
+								filter: "Quantity",
+								text: "Quantity",
+								sort: "Quantity",
+                visible: true,
+                hidden: false,
+              },
+							Column: {
+								order: 5,
+                sortProperty: "Quantity",
+                visible: true,
+                width: "7rem",
+                type: "Number",
+                number: "{Quantity}",
+              },
+						},
+						{
+							id: "Price",
+							label: "{i18n>Price}",
+							Filter: {
+								filter: "Price",
+								text: "Price",
+								sort: "Price",
+                visible: true,
+                hidden: false,
+              },
+							Column: {
+								order: 6,
+                sortProperty: "Price",
+                visible: true,
+                width: "7rem",
+                type: "Number",
+                number: "{Price}",
+              },
+            },
+            {
+              id: "Created",
+              label: "{i18n>Created}",
+              Filter: {
+                visible: true,
+                hidden: false,
+                mode: "DateField",
+                width: "9.2rem",
+                datePath: "Created",
+                dateMode: true,
+                selectedPeriod: "day",
+                visiblePeriodButtons: "day, week, month, year, all",
+              },
+              Column: {
+                order: 7,
+                sortProperty: "Created",
+                sortOrder: 1,
+                sort: "desc",
+                visible: true,
+                width: "9rem",
+                type: "date",
+                typeFormat: "medium",
+                text: "{Created}",
+              },
+						},
+            {
+							id: "CreatedBy",
+							label: "{i18n>CreatedBy}",
+              Filter: {
+                mode: "MultiSelect",
+                filter: "CreatedBy",
+                text: "CreatedBy",
+                sort: "CreatedBy",
+                icon: "CreatedBy",
+                key: "CreatedBy",
+                entitySet: "CreatedBy",
+                visible: true,
+                hidden: false,
+              },
+              Column: {
+                order: 8,
+                sortProperty: "CreatedBy",
+                visible: true,
+                width: "9rem",
+                type: "avatarAndLink",
+                select: "CreatedBy",
+              },
+            },
+						{
+              id: "Modified",
+              label: "{i18n>Modified}",
+              Filter: {
+                visible: true,
+                hidden: false,
+                mode: "DateField",
+                width: "9.2rem",
+                datePath: "Modified",
+                dateMode: true,
+                selectedPeriod: "day",
+                visiblePeriodButtons: "day, week, month, year, all",
+              },
+              Column: {
+                order: 9,
+                sortProperty: "Modified",
+                visible: true,
+                width: "9rem",
+                type: "dateTime",
+                typeFormat: "medium",
+                text: "{Modified}",
+              },
+						},
+						{
+							id: "ModifiedBy",
+							label: "{i18n>ModifiedBy}",
+              Filter: {
+                mode: "MultiSelect",
+                filter: "ModifiedBy",
+                text: "ModifiedBy",
+                sort: "ModifiedBy",
+                icon: "ModifiedBy",
+                key: "ModifiedBy",
+                entitySet: "ModifiedBy",
+                visible: true,
+                hidden: false,
+              },
+              Column: {
+                order: 10,
+                sortProperty: "ModifiedBy",
+                visible: true,
+                width: "9rem",
+                type: "avatarAndLink",
+                select: "ModifiedBy",
+              },
+            },
+          ],
+        }),
 
         onInit: function () {
-          const oViewModel = new JSONModel({
-            busy: false,
-            busyIndicatorDelay: 0,
-          });
+          let oViewModel = new JSONModel({});
           this.setModel(oViewModel, "worklistView");
+
+          this.jbBack.Init(this);
+
+          this.setModel(this.jsonAnnotation, "annotation");
         },
 
-        onBeforeRendering: function () {
-          this._bindTable();
+        onPressRefresh: function () {
+          this.byId("table").getBinding("rows").refresh();
         },
 
-        _bindTable() {
-          const oTable = this.getView().byId("table");
-          oTable.bindItems({
-            path: "/zjblessons_base_Items",
-            sorter: [new Sorter("Created", true)],
-            template: this._getTableTemplate(),
-            urlParameters: {
-              $select:
-                "HeaderID,Created"
-            },
-          });
+        prepareSelect: function (oEvent) {
+          this.aSorter = oEvent.getParameter("aSorts");
+          this.sSelect = oEvent.getParameter("sSelect");
+
+          this.callBindTable();
         },
 
-        _getTableTemplate() {
-          const oTemplate = new sap.m.ColumnListItem({
-            type: "Navigation",
-            cells: [
-              new sap.m.Text({
-                text: "{HeaderID}",
-              }),
-              new sap.m.Text({
-                text: {
-                  path: "Created",
-                  type: "sap.ui.model.type.Date",
-                  formatOptions: { style: "short" },
-                },
-              }),
-            ],
-          });
-          return oTemplate;
+        callBindTable: function (sPath) {
+          if (this.sSelect && this.aFilters) {
+            let sRequestAtLeast =
+              this.getModel("annotation").getData().RequestAtLeast;
+            this.byId("table").bindRows({
+              path: "/zjblessons_base_Items",
+              template: new sap.ui.table.Row({}),
+              filters: this.aFilters,
+              sorter: this.aSorter,
+              parameters: {
+                select:
+                  this.sSelect + (sRequestAtLeast ? "," + sRequestAtLeast : ""),
+              },
+            });
+          }
         },
 
+        onPressFilterBarChange: function (oEvent) {
+          this.aFilters = oEvent.getParameter("OdataFilters");
+          this.callBindTable();
+        },
       }
     );
   }
