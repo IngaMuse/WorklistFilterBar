@@ -47,12 +47,16 @@
 			"async": true,
 			"id": "app"
 		},
+		"resourceRoots":{
+			"jblibs": "../../../../../../jetCloud/apps/jbcommon/zjblibs/js/v20004/"
+		},
 		"dependencies": {
 			"minUI5Version": "1.42.0",
 			"libs": {
 				"sap.ui.core": {},
 				"sap.m": {},
-				"sap.f": {}
+				"sap.f": {},
+				"jblibs":{}
 			}
 		},
 		"contentDensities": {
@@ -68,7 +72,10 @@
 			},
 			"": {
 				"dataSource": "mainService",
-				"preload": true
+				"preload": true,
+				"settings": {
+					"defaultCountMode": "None"
+				}
 			}
 		},
 		"routing": {
@@ -80,7 +87,7 @@
 				"controlAggregation": "pages",
 				"bypassed": {
 					"target": [
-						"notFound"
+						"worklist"
 					]
 				},
 				"async": true
@@ -94,10 +101,10 @@
 					]
 				},
 				{
-					"pattern": "zjblessons_base_Items/{objectId}",
-					"name": "object",
+					"pattern": "{?query}",
+					"name": "Q",
 					"target": [
-						"object"
+						"worklist"
 					]
 				}
 			],
@@ -106,21 +113,7 @@
 					"viewName": "Worklist",
 					"viewId": "worklist",
 					"viewLevel": 1,
-					"title": "{i18n>worklistViewTitle}"
-				},
-				"object": {
-					"viewName": "Object",
-					"viewId": "object",
-					"viewLevel": 2,
-					"title": "{i18n>objectViewTitle}"
-				},
-				"objectNotFound": {
-					"viewName": "ObjectNotFound",
-					"viewId": "objectNotFound"
-				},
-				"notFound": {
-					"viewName": "NotFound",
-					"viewId": "notFound"
+					"title": ""
 				}
 			}
 		}

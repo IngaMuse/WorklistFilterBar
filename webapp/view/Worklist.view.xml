@@ -2,71 +2,54 @@
 	controllerName="zjblessons.WorklistFilterBar.controller.Worklist"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic">
+		xmlns:f="sap.f"
+	xmlns:table="sap.ui.table"
+	xmlns:core="sap.ui.core"
+	xmlns:s000="jblibs.s000"
+	xmlns:s006="jblibs.s006">
 
-	<semantic:SemanticPage
-		id="page"
-		headerPinnable="false"
-		toggleHeaderOnTitleClick="false">
-
-		<semantic:titleHeading>
-			<Title text="{i18n>worklistTitle}" />
-		</semantic:titleHeading>
-
-		<semantic:content>
-			<Table
-				id="table"
-				width="auto"
-				items="{
-					path: '/zjblessons_base_Items',
-					sorter: {
-						path: 'ItemID',
-						descending: false
-					}
-				}"
-				noDataText="{worklistView>/tableNoDataText}"
-				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
-				growing="true"
-				growingScrollToLoad="true"
-				updateFinished="onUpdateFinished">
-
-				<headerToolbar>
-					<Toolbar>
-						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
-						<ToolbarSpacer />
-						<SearchField
-							id="searchField"
-							tooltip="{i18n>worklistSearchTooltip}"
-							search="onSearch"
-							width="auto">
-						</SearchField>
-					</Toolbar>
-				</headerToolbar>
-
-				<columns>
-					<Column id="nameColumn">
-						<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
-					</Column>
-				</columns>
-
-				<items>
-					<ColumnListItem
-						type="Navigation"
-						press="onPress">
-						<cells>
-							<ObjectIdentifier
-								title="{ItemID}"/>
-						</cells>
-					</ColumnListItem>
-				</items>
-			</Table>
-		</semantic:content>
-
-		<semantic:sendEmailAction>
-			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
-		</semantic:sendEmailAction>
-
-
-	</semantic:SemanticPage>
+	<f:DynamicPage id="dynamicPage" fitContent="true" class="sapUiNoContentPadding jbFilterBarHeaderNoPadding" headerPinned="false" preserveHeaderStateOnScroll="false">
+		<f:header>
+			<f:DynamicPageHeader pinnable="false">
+				<s006:FilterBar id="filterBar" 
+    				URLAlias="AdminLogs" firstLine="Created,HeaderID"
+    				URLfilter="true" liveMode="true" btnShowHide="true" btnShowHidePressed="true"
+    				entityData="zjblessons_base_Items" SearchFields="HeaderID,MaterialID,GroupID,SubGroupID,CreatedBy,ModifiedBy"
+    				 ParametersModel="annotation" change="onPressFilterBarChange" labelPlacement="placeholder" alignControls="Start" btnMode="standard" secondaryControlID="btnTable" tableID="table">
+					<s006:rightToolbar>
+						<s006:BtnTableSettings id="btnTable" URLAlias="AdminLogs" URLfilter="true" VMID="" icon="sap-icon://action-settings" type="Transparent"
+					change="prepareSelect" tableID="table" ParametersModel="annotation" widthColumns="15rem"/>
+					    <s006:BtnTableExport icon="sap-icon://excel-attachment" type="Transparent" id="excel" tableID="table"/>
+						<Button type="Transparent" icon="sap-icon://refresh" press="onPressRefresh"/>
+					</s006:rightToolbar>
+				</s006:FilterBar>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<NavContainer height="100%" width="100%">
+				<table:Table id="table" visibleRowCountMode="Auto" minAutoRowCount="1" enableBusyIndicator="true" busyIndicatorDelay="0" threshold="160" selectionMode="None"
+					selectionBehavior="Row" >
+					<table:columns>
+						<table:Column id="CreatedBy" sortProperty="CreatedBy" width="9rem">
+							<Label text="{i18n>CreatedBy}"/>
+							<table:template>
+								<HBox alignItems="Center">
+									<s000:AvatarAndLink icon="{parts: ['CreatedByFullName','CreatedByAvatar'], formatter: '.checkAvatar'}" text="{CreatedByFullName}" clickable="text" imageURL="{CreatedByAvatar}" size="XXS"/>
+								</HBox>
+							</table:template>
+						</table:Column>
+						<table:Column id="ModifiedBy" sortProperty="ModifiedBy" width="9rem">
+							<Label text="{i18n>ModifiedBy}"/>
+							<table:template>
+								<HBox alignItems="Center">
+									<s000:AvatarAndLink icon="{parts: ['ModifiedByFullName','ModifiedByAvatar'], formatter: '.checkAvatar'}" text="{ModifiedByFullName}" clickable="text" imageURL="{ModifiedByAvatar}" size="XXS"/>
+								</HBox>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+			</NavContainer>
+		</f:content>
+	</f:DynamicPage>
 
 </mvc:View>

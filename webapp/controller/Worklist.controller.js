@@ -1,165 +1,321 @@
-/*global location history */
-sap.ui.define([
-		"zjblessons/WorklistFilterBar/controller/BaseController",
-		"sap/ui/model/json/JSONModel",
-		"zjblessons/WorklistFilterBar/model/formatter",
-		"sap/ui/model/Filter",
-		"sap/ui/model/FilterOperator"
-	], function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
-		"use strict";
+sap.ui.define(
+  [
+    "zjblessons/WorklistFilterBar/controller/BaseController",
+    "sap/ui/model/json/JSONModel",
+    "jblibs/s000/formatter",
+    "jblibs/s000/Back",
+  ],
+  function (BaseController, JSONModel, formatter, libsjbBack) {
+    "use strict";
 
-		return BaseController.extend("zjblessons.WorklistFilterBar.controller.Worklist", {
+    return BaseController.extend(
+      "zjblessons.WorklistFilterBar.controller.Worklist",
+      {
+        jbBack: new libsjbBack(),
+        formatter: formatter,
+				jsonAnnotation: new JSONModel({
+					RequestAtLeast: "",
+					Annotation: [
+						{
+							id: "HeaderID",
+							label: "{i18n>HeaderID}",
+              Filter: {
+                order: 2,
+								mode: "SingleSelectMaster",
+								filter: "HeaderID",
+								text: "HeaderID",
+								sort: "HeaderID",
+								key: "HeaderID",
+								entitySet: "zjblessons_base_Headers",
+								visible: true,
+								hidden: false,
+							},
+							Column: {
+								order: 1,
+								sortProperty: "HeaderID",
+								visible: true,
+								width: "9rem",
+								type: "text",
+								text: "{HeaderID}",
+							},
+						},
+						{
+							id: "MaterialID",
+							label: "{i18n>MaterialID}",
+              Filter: {
+                order: 4,
+								mode: "MultiSelect",
+								filter: "MaterialID",
+								text: "MaterialID",
+								sort: "MaterialID",
+								key: "MaterialID",
+								entitySet: "zjblessons_base_Materials",
+								filterKey: "MaterialID",
+								visible: true,
+								hidden: false,
+							},
+							Column: {
+								order: 3,
+								sortProperty: "MaterialID",
+								visible: true,
+								width: "9rem",
+								text: "{MaterialID}",
+								select: "MaterialID",
+								type: "text",
+							},
+						},
+						{
+							id: "GroupID",
+							label: "{i18n>GroupID}",
+              Filter: {
+                order: 6,
+							  mode: "MultiSelect",
+								filter: "GroupID",
+								text: "GroupID",
+								sort: "GroupID",
+								key: "GroupID",
+								entitySet: "zjblessons_base_Groups",
+								filterKey: "GroupID",
+								visible: true,
+								hidden: false,
+							},
+							Column: {
+								order: 5,
+								sortProperty: "GroupID",
+								visible: true,
+								width: "9rem",
+								text: "{GroupID}",
+								select: "GroupID",
+								type: "text",
+							},
+						},
+						{
+							id: "SubGroupID",
+							label: "{i18n>SubGroupID}",
+              Filter: {
+                order: 8,
+								mode: "MultiSelect",
+								filter: "SubGroupID",
+								text: "SubGroupID",
+								sort: "SubGroupID",
+								key: "SubGroupID",
+								entitySet: "zjblessons_base_SubGroups",
+								filterKey: "SubGroupID",
+								visible: true,
+								hidden: false,
+							},
+							Column: {
+								order: 7,
+								sortProperty: "SubGroupID",
+								visible: true,
+								width: "9rem",
+								text: "{SubGroupID}",
+								select: "SubGroupID",
+								type: "text",
+							},
+						},
+						{
+							id: "Quantity",
+							label: "{i18n>Quantity}",
+              Filter: { 
+                order: 10,
+								filter: "Quantity",
+								text: "Quantity",
+                sort: "Quantity",
+                key: "Quantity",
+                filterKey: "Quantity",
+								entitySet: "zjblessons_base_Items",
+                visible: true,
+                hidden: false,
+              },
+							Column: {
+								order: 9,
+                sortProperty: "Quantity",
+                visible: true,
+                width: "7rem",
+                type: "Number",
+                number: "{Quantity}",
+                select: "Quantity",
+              },
+						},
+						{
+							id: "Price",
+							label: "{i18n>Price}",
+              Filter: {
+                order: 12,
+                filter: "Price",
+								text: "Price",
+                sort: "Price",
+                key: "Price",
+                filterKey: "Price",
+                entitySet: "zjblessons_base_Items",
+                visible: true,
+                hidden: false,
+              },
+							Column: {
+								order: 11,
+                sortProperty: "Price",
+                visible: true,
+                width: "7rem",
+                type: "Number",
+                select: "Price",
+                number:"{Price}"
+              },
+            },
+            {
+              id: "Created",
+              label: "{i18n>Created}",
+              Filter: {
+                order: 14,
+                visible: true,
+                hidden: false,
+                mode: "DateField",
+                width: "9rem",
+                datePath: "Created",
+                dateMode: true,
+                selectedPeriod: "all",
+                visiblePeriodButtons: "day, week, month, year, all",
+              },
+              Column: {
+                order: 13,
+                sortProperty: "Created",
+                sortOrder: 1,
+                sort: "desc",
+                visible: true,
+                width: "9rem",
+                type: "date",
+                typeFormat: "medium",
+                text: "{Created}",
+              },
+						},
+            {
+							id: "CreatedBy",
+							label: "{i18n>CreatedBy}",
+              Filter: {
+                order: 16,
+                mode: "MultiSelect",
+                filter: "CreatedByFullName",
+                text: "CreatedByFullName",
+                sort: "CreatedByFullName",
+                image: "CreatedByAvatar",
+                key: "CreatedBy",
+                entitySet: "jbcommon_auth_CreatedBy",
+                visible: true,
+                hidden: false,
+              },
+              Column: {
+                order: 15,
+                sortProperty: "CreatedByFullName",
+                visible: true,
+                width: "9rem",
+                text: "CreatedByFullName",
+                imageURL: "CreatedByAvatar",
+                type: "avatarAndLink",
+								select: "CreatedByAvatar,CreatedByFullName"
+              },
+            },
+						{
+              id: "Modified",
+              label: "{i18n>Modified}",
+              Filter: {
+                order: 18,
+                visible: true,
+                hidden: false,
+                mode: "DateField",
+                width: "9rem",
+                datePath: "Modified",
+                dateMode: true,
+                selectedPeriod: "day",
+                visiblePeriodButtons: "day, week, month, year, all",
+              },
+              Column: {
+                order: 17,
+                sortProperty: "Modified",
+                visible: true,
+                width: "9rem",
+                type: "dateTime",
+                typeFormat: "medium",
+                text: "{Modified}",
+              },
+						},
+						{
+							id: "ModifiedBy",
+							label: "{i18n>ModifiedBy}",
+              Filter: {
+                order: 20,
+                mode: "MultiSelect",
+                filter: "ModifiedByFullName",
+                text: "ModifiedByFullName",
+                sort: "ModifiedByFullName",
+                image: "ModifiedByAvatar",
+                key: "ModifiedBy",
+                entitySet: "jbcommon_auth_ModifiedBy",
+                visible: true,
+                hidden: false,
+              },
+              Column: {
+                order: 19,
+                sortProperty: "ModifiedBy",
+                visible: true,
+                width: "9rem",
+                text: "ModifiedByFullName",
+                imageURL: "ModifiedByAvatar",
+                type: "avatarAndLink",
+                select: "ModifiedByAvatar,ModifiedByFullName",
+              },
+            },
+          ],
+				}),
 
-			formatter: formatter,
+				checkAvatar: function (sName, sAvatar) {
+					if (sName && sName !== "" && sAvatar==="") {
+						return "sap-icon://person-placeholder"
+					} else
+					return "";
+        },
 
-			/* =========================================================== */
-			/* lifecycle methods                                           */
-			/* =========================================================== */
+        onInit: function () {
+          let oViewModel = new JSONModel({});
+          this.setModel(oViewModel, "worklistView");
 
-			/**
-			 * Called when the worklist controller is instantiated.
-			 * @public
-			 */
-			onInit : function () {
-				var oViewModel,
-					iOriginalBusyDelay,
-					oTable = this.byId("table");
+          this.jbBack.Init(this);
 
-				// Put down worklist table's original value for busy indicator delay,
-				// so it can be restored later on. Busy handling on the table is
-				// taken care of by the table itself.
-				iOriginalBusyDelay = oTable.getBusyIndicatorDelay();
-				// keeps the search state
-				this._aTableSearchState = [];
+          this.setModel(this.jsonAnnotation, "annotation");
+        },
 
-				// Model used to manipulate control states
-				oViewModel = new JSONModel({
-					worklistTableTitle : this.getResourceBundle().getText("worklistTableTitle"),
-					shareOnJamTitle: this.getResourceBundle().getText("worklistTitle"),
-					shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailWorklistSubject"),
-					shareSendEmailMessage: this.getResourceBundle().getText("shareSendEmailWorklistMessage", [location.href]),
-					tableNoDataText : this.getResourceBundle().getText("tableNoDataText"),
-					tableBusyDelay : 0
-				});
-				this.setModel(oViewModel, "worklistView");
+        onPressRefresh: function () {
+          this.byId("table").getBinding("rows").refresh();
+        },
 
-				// Make sure, busy indication is showing immediately so there is no
-				// break after the busy indication for loading the view's meta data is
-				// ended (see promise 'oWhenMetadataIsLoaded' in AppController)
-				oTable.attachEventOnce("updateFinished", function(){
-					// Restore original busy indicator delay for worklist's table
-					oViewModel.setProperty("/tableBusyDelay", iOriginalBusyDelay);
-				});
-			},
+        prepareSelect: function (oEvent) {
+          this.aSorter = oEvent.getParameter("aSorts");
+          this.sSelect = oEvent.getParameter("sSelect");
 
-			/* =========================================================== */
-			/* event handlers                                              */
-			/* =========================================================== */
+          this.callBindTable();
+        },
 
-			/**
-			 * Triggered by the table's 'updateFinished' event: after new table
-			 * data is available, this handler method updates the table counter.
-			 * This should only happen if the update was successful, which is
-			 * why this handler is attached to 'updateFinished' and not to the
-			 * table's list binding's 'dataReceived' method.
-			 * @param {sap.ui.base.Event} oEvent the update finished event
-			 * @public
-			 */
-			onUpdateFinished : function (oEvent) {
-				// update the worklist's object counter after the table update
-				var sTitle,
-					oTable = oEvent.getSource(),
-					iTotalItems = oEvent.getParameter("total");
-				// only update the counter if the length is final and
-				// the table is not empty
-				if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
-					sTitle = this.getResourceBundle().getText("worklistTableTitleCount", [iTotalItems]);
-				} else {
-					sTitle = this.getResourceBundle().getText("worklistTableTitle");
-				}
-				this.getModel("worklistView").setProperty("/worklistTableTitle", sTitle);
-			},
+        callBindTable: function (sPath) {
+          if (this.sSelect && this.aFilters) {
+            let sRequestAtLeast =
+              this.getModel("annotation").getData().RequestAtLeast;
+            this.byId("table").bindRows({
+              path: "/zjblessons_base_Items",
+              template: new sap.ui.table.Row({}),
+              filters: this.aFilters,
+              sorter: this.aSorter,
+              parameters: {
+                select:
+                  this.sSelect + (sRequestAtLeast ? "," + sRequestAtLeast : ""),
+              },
+            });
+          }
+        },
 
-			/**
-			 * Event handler when a table item gets pressed
-			 * @param {sap.ui.base.Event} oEvent the table selectionChange event
-			 * @public
-			 */
-			onPress : function (oEvent) {
-				// The source is the list item that got pressed
-				this._showObject(oEvent.getSource());
-			},
-
-			/**
-			 * Event handler for navigating back.
-			 * We navigate back in the browser historz
-			 * @public
-			 */
-			onNavBack : function() {
-				history.go(-1);
-			},
-
-
-			onSearch : function (oEvent) {
-				if (oEvent.getParameters().refreshButtonPressed) {
-					// Search field's 'refresh' button has been pressed.
-					// This is visible if you select any master list item.
-					// In this case no new search is triggered, we only
-					// refresh the list binding.
-					this.onRefresh();
-				} else {
-					var aTableSearchState = [];
-					var sQuery = oEvent.getParameter("query");
-
-					if (sQuery && sQuery.length > 0) {
-						aTableSearchState = [new Filter("ItemID", FilterOperator.Contains, sQuery)];
-					}
-					this._applySearch(aTableSearchState);
-				}
-
-			},
-
-			/**
-			 * Event handler for refresh event. Keeps filter, sort
-			 * and group settings and refreshes the list binding.
-			 * @public
-			 */
-			onRefresh : function () {
-				var oTable = this.byId("table");
-				oTable.getBinding("items").refresh();
-			},
-
-			/* =========================================================== */
-			/* internal methods                                            */
-			/* =========================================================== */
-
-			/**
-			 * Shows the selected item on the object page
-			 * On phones a additional history entry is created
-			 * @param {sap.m.ObjectListItem} oItem selected Item
-			 * @private
-			 */
-			_showObject : function (oItem) {
-				this.getRouter().navTo("object", {
-					objectId: oItem.getBindingContext().getProperty("ItemID")
-				});
-			},
-
-			/**
-			 * Internal helper method to apply both filter and search state together on the list binding
-			 * @param {sap.ui.model.Filter[]} aTableSearchState An array of filters for the search
-			 * @private
-			 */
-			_applySearch: function(aTableSearchState) {
-				var oTable = this.byId("table"),
-					oViewModel = this.getModel("worklistView");
-				oTable.getBinding("items").filter(aTableSearchState, "Application");
-				// changes the noDataText of the list in case there are no filter results
-				if (aTableSearchState.length !== 0) {
-					oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
-				}
-			}
-
-		});
-	}
+        onPressFilterBarChange: function (oEvent) {
+          this.aFilters = oEvent.getParameter("OdataFilters");
+          this.callBindTable();
+        },
+      }
+    );
+  }
 );
