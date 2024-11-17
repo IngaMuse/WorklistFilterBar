@@ -38,7 +38,7 @@
 								</HBox>
 							</table:template>
 						</table:Column>
-												<table:Column id="ModifiedBy" sortProperty="ModifiedBy" width="9rem">
+						<table:Column id="ModifiedBy" sortProperty="ModifiedBy" width="9rem">
 							<Label text="{i18n>ModifiedBy}"/>
 							<table:template>
 								<HBox alignItems="Center">

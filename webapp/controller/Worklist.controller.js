@@ -143,8 +143,7 @@ sap.ui.define(
 							label: "{i18n>Price}",
               Filter: {
                 order: 12,
-                mode:"SearchField",
-								filter: "Price",
+                filter: "Price",
 								text: "Price",
                 sort: "Price",
                 key: "Price",
@@ -273,7 +272,7 @@ sap.ui.define(
 						return "sap-icon://person-placeholder"
 					} else
 					return "";
-			  },
+        },
 
         onInit: function () {
           let oViewModel = new JSONModel({});
